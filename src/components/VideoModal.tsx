@@ -1,4 +1,5 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { readConsent, onConsentChange } from "@/lib/cookie-consent";
 
 interface VideoModalProps {
   videoId: string | null;

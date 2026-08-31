@@ -10,6 +10,7 @@ import {
 import { useEffect, type ReactNode } from "react";
 import { FloatingNav } from "@/components/FloatingNav";
 import { CurtainIntro } from "@/components/CurtainIntro";
+import { CookieConsent } from "@/components/CookieConsent";
 
 
 import appCss from "../styles.css?url";
@@ -124,6 +125,7 @@ function RootComponent() {
       <Outlet />
       <FloatingNav />
       <CurtainIntro />
+      <CookieConsent />
     </QueryClientProvider>
   );
 }
