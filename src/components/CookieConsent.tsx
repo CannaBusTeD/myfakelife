@@ -6,10 +6,10 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import cookiesAsset from "@/assets/site/cookies-message.png.asset.json";
-import { readConsent, writeConsent } from "@/lib/cookie-consent";
+import { readConsent, writeConsent, clearConsent } from "@/lib/cookie-consent";
 
 const NOTE_TEXT =
-  "Cookies? Fancy one? We use small cookies to help us understand how people visit these pages. Nothing weird. Nothing personal. Just a little help for a better journey. Choose Allow to accept, or Reject to carry on without them — the site works exactly the same either way.";
+  "Cookies? Fancy one? We use cookies to remember your cookie choice and, if you choose Accept, to recognise this browser across the connected CannaBusTeD websites under cannabusted.com. Choose Accept to allow it, or Reject to carry on without it — the site works exactly the same either way.";
 
 export function CookieConsent() {
   const [open, setOpen] = useState(false);
@@ -30,6 +30,12 @@ export function CookieConsent() {
   }, []);
 
   useEffect(() => {
+    const reopen = () => setOpen(true);
+    window.addEventListener("mfl-consent-reopen", reopen);
+    return () => window.removeEventListener("mfl-consent-reopen", reopen);
+  }, []);
+
+  useEffect(() => {
     if (!open) return;
     const t = window.setTimeout(() => allowRef.current?.focus(), 80);
     return () => window.clearTimeout(t);
@@ -39,6 +45,12 @@ export function CookieConsent() {
     writeConsent(c);
     setShowInfo(false);
     setOpen(false);
+  };
+
+  const withdraw = () => {
+    clearConsent();
+    setShowInfo(false);
+    setOpen(true);
   };
 
   return (
