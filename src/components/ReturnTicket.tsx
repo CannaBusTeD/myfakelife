@@ -34,7 +34,7 @@ export function ReturnTicketButton() {
               : "(press to open form)"}
           </span>
           <img
-            src={returnTicketAsset.url}
+            src={returnTicketImg}
             alt=""
             aria-hidden="true"
             className="block w-full max-w-md h-auto select-none"
