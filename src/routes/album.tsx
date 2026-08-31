@@ -5,6 +5,7 @@ import { LyricBook } from "@/components/LyricBook";
 import { SocialIconButtons } from "@/components/SocialIconButtons";
 import { SecretVoiceTile } from "@/components/SecretVoiceTile";
 import { ReturnTicketButton } from "@/components/ReturnTicket";
+import { DonateNoteButton } from "@/components/DonateNoteButton";
 import heroAsset from "@/assets/site/hero-portrait.png.asset.json";
 import signalAsset from "@/assets/site/signal-room.png.asset.json";
 import albumCover from "@/assets/site/album-cover.png.asset.json";
@@ -285,20 +286,18 @@ function AlbumSite() {
               <span className="font-script text-2xl leading-none text-ember">Contact TeD</span>
               <span className="text-sm text-parchment/80">CannaBusTeD@icloud.com</span>
             </a>
-            <a
-              href="https://paypal.me/CannaBusTeD"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Donate to CannaBusTeD via PayPal"
+            <DonateNoteButton
+              triggerLabel="DoNaTeD — support CannaBusTeD, opens a note about leaving a tip"
               className="landing-focus block w-40 sm:w-48 transition-transform hover:scale-[1.03] focus-visible:scale-[1.03] md:ml-6 md:rotate-[-2deg]"
             >
               <img
                 src={donatedAsset.url}
-                alt="DoNaTeD — support CannaBusTeD via PayPal"
+                alt=""
+                aria-hidden="true"
                 className="block w-full h-auto select-none drop-shadow-[0_10px_25px_rgba(0,0,0,0.6)]"
                 draggable={false}
               />
-            </a>
+            </DonateNoteButton>
             <div className="w-full max-w-[220px]">
               <ReturnTicketButton />
             </div>
