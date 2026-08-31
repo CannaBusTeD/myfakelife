@@ -13,11 +13,22 @@
 export type ConsentChoice = "allowed" | "rejected";
 
 const KEY = "mfl_cookie_consent";
-const COOKIE = "cb_cookie_consent";
+/** Shared cross-site contract: cb_consent = "accept" | "reject". */
+const COOKIE = "cb_consent";
+/** Legacy name/values, read for migration only. */
+const LEGACY_COOKIE = "cb_cookie_consent";
 const BROWSER_ID_COOKIE = "cb_bid";
 const BROWSER_ID_KEY = "cb_bid";
 const TWELVE_MONTHS_SECONDS = 60 * 60 * 24 * 365;
 const PARENT_DOMAIN = "cannabusted.com";
+
+const toWire = (c: ConsentChoice) => (c === "allowed" ? "accept" : "reject");
+function fromWire(v: string | null): ConsentChoice | null {
+  if (v === "accept" || v === "allowed") return "allowed";
+  if (v === "reject" || v === "rejected") return "rejected";
+  return null;
+}
+
 
 /** True when we're on the live cannabusted.com domain (any subdomain). */
 export function isSharedDomain(): boolean {
@@ -49,15 +60,16 @@ function clearSharedCookie(name: string) {
 
 export function readConsent(): ConsentChoice | null {
   if (typeof window === "undefined") return null;
-  const fromCookie = readCookie(COOKIE);
-  if (fromCookie === "allowed" || fromCookie === "rejected") return fromCookie;
+  const fromCookie =
+    fromWire(readCookie(COOKIE)) ?? fromWire(readCookie(LEGACY_COOKIE));
+  if (fromCookie) return fromCookie;
   try {
-    const v = window.localStorage.getItem(KEY);
-    return v === "allowed" || v === "rejected" ? v : null;
+    return fromWire(window.localStorage.getItem(KEY));
   } catch {
     return null;
   }
 }
+
 
 /**
  * An anonymous browser identifier, created only after Accept. It carries no
@@ -91,12 +103,14 @@ export function getBrowserId(): string | null {
 }
 
 export function writeConsent(choice: ConsentChoice) {
-  writeSharedCookie(COOKIE, choice, TWELVE_MONTHS_SECONDS);
+  writeSharedCookie(COOKIE, toWire(choice), TWELVE_MONTHS_SECONDS);
+  clearSharedCookie(LEGACY_COOKIE);
   try {
-    window.localStorage.setItem(KEY, choice);
+    window.localStorage.setItem(KEY, toWire(choice));
   } catch {
     /* storage unavailable — choice simply isn't remembered */
   }
+
 
   if (choice === "allowed") {
     getBrowserId();
@@ -117,8 +131,10 @@ export function writeConsent(choice: ConsentChoice) {
 /** Forget the stored choice entirely (withdraw consent). */
 export function clearConsent() {
   clearSharedCookie(COOKIE);
+  clearSharedCookie(LEGACY_COOKIE);
   clearSharedCookie(BROWSER_ID_COOKIE);
   try {
+
     window.localStorage.removeItem(KEY);
     window.localStorage.removeItem(BROWSER_ID_KEY);
   } catch {
