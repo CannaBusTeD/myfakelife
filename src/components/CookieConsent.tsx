@@ -6,10 +6,10 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import cookiesAsset from "@/assets/site/cookies-message.png.asset.json";
-import { readConsent, writeConsent } from "@/lib/cookie-consent";
+import { readConsent, writeConsent, clearConsent } from "@/lib/cookie-consent";
 
 const NOTE_TEXT =
-  "Cookies? Fancy one? We use small cookies to help us understand how people visit these pages. Nothing weird. Nothing personal. Just a little help for a better journey. Choose Allow to accept, or Reject to carry on without them — the site works exactly the same either way.";
+  "Cookies? Fancy one? We use cookies to remember your cookie choice and, if you choose Accept, to recognise this browser across the connected CannaBusTeD websites under cannabusted.com. Choose Accept to allow it, or Reject to carry on without it — the site works exactly the same either way.";
 
 export function CookieConsent() {
   const [open, setOpen] = useState(false);
@@ -30,6 +30,12 @@ export function CookieConsent() {
   }, []);
 
   useEffect(() => {
+    const reopen = () => setOpen(true);
+    window.addEventListener("mfl-consent-reopen", reopen);
+    return () => window.removeEventListener("mfl-consent-reopen", reopen);
+  }, []);
+
+  useEffect(() => {
     if (!open) return;
     const t = window.setTimeout(() => allowRef.current?.focus(), 80);
     return () => window.clearTimeout(t);
@@ -39,6 +45,12 @@ export function CookieConsent() {
     writeConsent(c);
     setShowInfo(false);
     setOpen(false);
+  };
+
+  const withdraw = () => {
+    clearConsent();
+    setShowInfo(false);
+    setOpen(true);
   };
 
   return (
@@ -69,7 +81,7 @@ export function CookieConsent() {
               onClick={() => choose("allowed")}
               className="landing-focus absolute left-[16%] top-[65%] h-[16%] w-[33%] rounded-md"
             >
-              <span className="sr-only">Allow cookies</span>
+              <span className="sr-only">Accept cookies</span>
             </button>
             <button
               type="button"
@@ -94,7 +106,7 @@ export function CookieConsent() {
               onClick={() => choose("allowed")}
               className="btn-poster btn-poster--ember landing-focus min-h-11 px-5 py-3 text-xs"
             >
-              Allow
+              Accept
             </button>
             <button
               type="button"
@@ -118,18 +130,39 @@ export function CookieConsent() {
         <DialogContent className="max-w-[min(94vw,560px)]">
           <DialogTitle>How we use cookies</DialogTitle>
           <DialogDescription className="sr-only">
-            A plain-English list of the storage this site actually uses.
+            A plain-English explanation of the cookies these sites use and how
+            to change or withdraw your choice.
           </DialogDescription>
-          <div className="space-y-4 text-sm leading-relaxed text-foreground">
+          <div className="max-h-[70vh] space-y-4 overflow-y-auto text-sm leading-relaxed text-foreground">
             <p>
-              Plain English: this site sets no advertising cookies and runs no
-              analytics or tracking scripts of its own. Here's everything it
-              actually stores:
+              We use cookies to remember your cookie choice and, if you choose
+              Accept, to recognise this browser across the connected
+              CannaBusTeD websites under cannabusted.com — My Fake Love, My
+              Fake Laugh, My Fake Book, My Fake Life and My Fake Voice.
+            </p>
+            <p>
+              This lets us understand how visitors move through the connected
+              sites, what parts are used, and make the experience more
+              relevant. We use an anonymous browser identifier for this
+              purpose; it is not intended to identify you personally. We do not
+              sell this information to advertisers.
+            </p>
+            <p>
+              If you choose Reject, we do not use optional tracking and the
+              sites remain available normally. Your choice lasts for 12 months,
+              unless you clear your browser data or withdraw or change your
+              choice sooner. You can withdraw consent at any time.
             </p>
             <ul className="list-disc space-y-2 pl-5">
               <li>
-                <strong>Your cookie choice</strong> — kept in your browser's
-                local storage so this note doesn't ask you again. Essential.
+                <strong>Your cookie choice</strong> — stored so this note
+                doesn't ask you again, and shared across the connected sites.
+                Essential.
+              </li>
+              <li>
+                <strong>Anonymous browser identifier</strong> — only created if
+                you choose Accept, and removed if you reject or withdraw.
+                Optional.
               </li>
               <li>
                 <strong>Intro curtain</strong> — a single flag in session
@@ -137,11 +170,9 @@ export function CookieConsent() {
                 disappears when you close the tab. Essential.
               </li>
               <li>
-                <strong>Embedded YouTube videos</strong> — the only
-                non-essential item. Videos use YouTube's privacy-enhanced
-                (no-cookie) player, and it still only loads if you choose
-                Allow. Choose Reject and videos open on YouTube in a new tab
-                instead.
+                <strong>Embedded YouTube videos</strong> — held back until you
+                choose Accept. Choose Reject and videos open on YouTube in a
+                new tab instead.
               </li>
               <li>
                 <strong>Mailchimp sign-up</strong> — only if you fill in the
@@ -153,13 +184,20 @@ export function CookieConsent() {
               stays fully available.
             </p>
           </div>
-          <div className="mt-2 flex justify-end">
+          <div className="mt-2 flex flex-wrap justify-end gap-3">
+            <button
+              type="button"
+              onClick={withdraw}
+              className="landing-focus min-h-11 px-3 py-3 text-xs underline text-parchment/90"
+            >
+              Withdraw / change my choice
+            </button>
             <button
               type="button"
               onClick={() => setShowInfo(false)}
               className="btn-poster landing-focus min-h-11 px-5 py-3 text-xs"
             >
-              Back
+              Close
             </button>
           </div>
         </DialogContent>
