@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from "react";
-import returnTicketAsset from "@/assets/site/return-ticket.png.asset.json";
+import returnTicketImg from "@/assets/site/return-ticket-cutout.png";
 
 export function ReturnTicketButton() {
   const [ticketOpen, setTicketOpen] = useState(false);
