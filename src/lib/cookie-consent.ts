@@ -131,8 +131,10 @@ export function writeConsent(choice: ConsentChoice) {
 /** Forget the stored choice entirely (withdraw consent). */
 export function clearConsent() {
   clearSharedCookie(COOKIE);
+  clearSharedCookie(LEGACY_COOKIE);
   clearSharedCookie(BROWSER_ID_COOKIE);
   try {
+
     window.localStorage.removeItem(KEY);
     window.localStorage.removeItem(BROWSER_ID_KEY);
   } catch {
