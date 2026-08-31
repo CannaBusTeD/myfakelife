@@ -17,11 +17,16 @@ export function CookieConsent() {
   const allowRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    if (readConsent() === null) {
-      // let the curtain intro settle first
-      const t = window.setTimeout(() => setOpen(true), 1200);
-      return () => window.clearTimeout(t);
+    if (readConsent() !== null) return;
+    // wait for the curtain intro to finish, if it's playing this session
+    let introPlaying = true;
+    try {
+      introPlaying = sessionStorage.getItem("mfl_intro_played") !== "1";
+    } catch {
+      /* noop */
     }
+    const t = window.setTimeout(() => setOpen(true), introPlaying ? 5200 : 600);
+    return () => window.clearTimeout(t);
   }, []);
 
   useEffect(() => {
