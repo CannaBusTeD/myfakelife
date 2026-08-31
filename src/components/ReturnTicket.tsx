@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from "react";
-import returnTicketAsset from "@/assets/site/return-ticket.png.asset.json";
+import returnTicketImg from "@/assets/site/return-ticket-cutout.png";
 
 export function ReturnTicketButton() {
   const [ticketOpen, setTicketOpen] = useState(false);
@@ -25,7 +25,7 @@ export function ReturnTicketButton() {
           aria-expanded={ticketOpen}
           aria-controls="return-ticket-form"
           onClick={() => setTicketOpen((v) => !v)}
-          className="landing-focus group inline-block rounded-sm overflow-hidden transition-transform hover:scale-[1.02] focus-visible:scale-[1.02]"
+          className="landing-focus group inline-block bg-transparent border-0 p-0 shadow-none transition-transform hover:scale-[1.02] focus-visible:scale-[1.02]"
         >
           <span className="sr-only">
             Free return ticket{" "}
@@ -34,7 +34,7 @@ export function ReturnTicketButton() {
               : "(press to open form)"}
           </span>
           <img
-            src={returnTicketAsset.url}
+            src={returnTicketImg}
             alt=""
             aria-hidden="true"
             className="block w-full max-w-md h-auto select-none"
