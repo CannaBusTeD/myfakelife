@@ -430,6 +430,16 @@ function HowToPage() {
             Back to the door
           </Link>
         </div>
+
+        <div className="mt-10 border-t border-border/40 pt-6">
+          <Link
+            to="/lost-property"
+            className="landing-focus font-mono text-[10px] uppercase tracking-[0.35em] text-muted-foreground hover:text-ember transition"
+          >
+            Lost Property →
+          </Link>
+        </div>
+
       </main>
     </div>
   );

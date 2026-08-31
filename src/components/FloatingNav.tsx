@@ -6,6 +6,8 @@ const NAV_ORDER = [
   "/listen",
   "/guide/how-to-make-a-concept-album",
   "/how-to-build-a-world",
+  "/lost-property",
+
 ] as const;
 
 type NavPath = (typeof NAV_ORDER)[number];
