@@ -103,12 +103,14 @@ export function getBrowserId(): string | null {
 }
 
 export function writeConsent(choice: ConsentChoice) {
-  writeSharedCookie(COOKIE, choice, TWELVE_MONTHS_SECONDS);
+  writeSharedCookie(COOKIE, toWire(choice), TWELVE_MONTHS_SECONDS);
+  clearSharedCookie(LEGACY_COOKIE);
   try {
-    window.localStorage.setItem(KEY, choice);
+    window.localStorage.setItem(KEY, toWire(choice));
   } catch {
     /* storage unavailable — choice simply isn't remembered */
   }
+
 
   if (choice === "allowed") {
     getBrowserId();
