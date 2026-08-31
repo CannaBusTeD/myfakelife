@@ -60,15 +60,16 @@ function clearSharedCookie(name: string) {
 
 export function readConsent(): ConsentChoice | null {
   if (typeof window === "undefined") return null;
-  const fromCookie = readCookie(COOKIE);
-  if (fromCookie === "allowed" || fromCookie === "rejected") return fromCookie;
+  const fromCookie =
+    fromWire(readCookie(COOKIE)) ?? fromWire(readCookie(LEGACY_COOKIE));
+  if (fromCookie) return fromCookie;
   try {
-    const v = window.localStorage.getItem(KEY);
-    return v === "allowed" || v === "rejected" ? v : null;
+    return fromWire(window.localStorage.getItem(KEY));
   } catch {
     return null;
   }
 }
+
 
 /**
  * An anonymous browser identifier, created only after Accept. It carries no
