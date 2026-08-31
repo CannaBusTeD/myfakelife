@@ -40,11 +40,10 @@ export function CookieConsent() {
     <>
       <Dialog open={open} onOpenChange={(v) => !v || setOpen(v)}>
         <DialogContent
-          onEscapeKeyDown={(e) => e.preventDefault()}
+          onEscapeKeyDown={() => choose("rejected")}
           onPointerDownOutside={(e) => e.preventDefault()}
           onInteractOutside={(e) => e.preventDefault()}
-          showCloseButton={false}
-          className="max-w-[min(94vw,620px)] border-none bg-transparent p-0 shadow-none sm:max-w-[min(90vw,620px)]"
+          className="max-w-[min(94vw,620px)] border-none bg-transparent p-0 shadow-none sm:max-w-[min(90vw,620px)] [&>button]:hidden"
         >
           <DialogTitle className="sr-only">Cookies on My Fake Life</DialogTitle>
           <DialogDescription className="sr-only">{NOTE_TEXT}</DialogDescription>
