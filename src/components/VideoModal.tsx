@@ -10,6 +10,12 @@ interface VideoModalProps {
 
 export function VideoModal({ videoId, title, onClose, returnFocusTo }: VideoModalProps) {
   const closeBtnRef = useRef<HTMLButtonElement | null>(null);
+  const [allowed, setAllowed] = useState(false);
+
+  useEffect(() => {
+    setAllowed(readConsent() === "allowed");
+    return onConsentChange((c) => setAllowed(c === "allowed"));
+  }, []);
 
   useEffect(() => {
     if (!videoId) return;
@@ -55,14 +61,31 @@ export function VideoModal({ videoId, title, onClose, returnFocusTo }: VideoModa
           </button>
         </div>
         <div className="relative w-full aspect-video bg-black ring-1 ring-oxblood/50 shadow-2xl">
-          <iframe
-            key={videoId}
-            src={`https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`}
-            title={title ?? "YouTube video player"}
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowFullScreen
-            className="absolute inset-0 w-full h-full"
-          />
+          {allowed ? (
+            <iframe
+              key={videoId}
+              src={`https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`}
+              title={title ?? "YouTube video player"}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+              className="absolute inset-0 w-full h-full"
+            />
+          ) : (
+            <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 p-6 text-center">
+              <p className="max-w-md text-sm text-parchment/85">
+                You chose not to allow non-essential cookies, so the embedded
+                player stays switched off. You can still watch it on YouTube.
+              </p>
+              <a
+                href={`https://www.youtube.com/watch?v=${videoId}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-poster btn-poster--ember landing-focus min-h-11 px-5 py-3 text-xs"
+              >
+                Watch on YouTube
+              </a>
+            </div>
+          )}
         </div>
       </div>
     </div>
