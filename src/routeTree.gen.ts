@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AlbumRouteImport } from './routes/album'
 import { Route as HowToBuildAWorldRouteImport } from './routes/how-to-build-a-world'
 import { Route as ListenRouteImport } from './routes/listen'
+import { Route as LostPropertyRouteImport } from './routes/lost-property'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as GuideHowToMakeAConceptAlbumRouteImport } from './routes/guide.how-to-make-a-concept-album'
 
@@ -36,6 +37,11 @@ const ListenRoute = ListenRouteImport.update({
   path: '/listen',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LostPropertyRoute = LostPropertyRouteImport.update({
+  id: '/lost-property',
+  path: '/lost-property',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
@@ -53,6 +59,7 @@ export interface FileRoutesByFullPath {
   '/album': typeof AlbumRoute
   '/how-to-build-a-world': typeof HowToBuildAWorldRoute
   '/listen': typeof ListenRoute
+  '/lost-property': typeof LostPropertyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/guide/how-to-make-a-concept-album': typeof GuideHowToMakeAConceptAlbumRoute
 }
@@ -61,6 +68,7 @@ export interface FileRoutesByTo {
   '/album': typeof AlbumRoute
   '/how-to-build-a-world': typeof HowToBuildAWorldRoute
   '/listen': typeof ListenRoute
+  '/lost-property': typeof LostPropertyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/guide/how-to-make-a-concept-album': typeof GuideHowToMakeAConceptAlbumRoute
 }
@@ -70,6 +78,7 @@ export interface FileRoutesById {
   '/album': typeof AlbumRoute
   '/how-to-build-a-world': typeof HowToBuildAWorldRoute
   '/listen': typeof ListenRoute
+  '/lost-property': typeof LostPropertyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/guide/how-to-make-a-concept-album': typeof GuideHowToMakeAConceptAlbumRoute
 }
@@ -80,6 +89,7 @@ export interface FileRouteTypes {
     | '/album'
     | '/how-to-build-a-world'
     | '/listen'
+    | '/lost-property'
     | '/sitemap.xml'
     | '/guide/how-to-make-a-concept-album'
   fileRoutesByTo: FileRoutesByTo
@@ -88,6 +98,7 @@ export interface FileRouteTypes {
     | '/album'
     | '/how-to-build-a-world'
     | '/listen'
+    | '/lost-property'
     | '/sitemap.xml'
     | '/guide/how-to-make-a-concept-album'
   id:
@@ -96,6 +107,7 @@ export interface FileRouteTypes {
     | '/album'
     | '/how-to-build-a-world'
     | '/listen'
+    | '/lost-property'
     | '/sitemap.xml'
     | '/guide/how-to-make-a-concept-album'
   fileRoutesById: FileRoutesById
@@ -105,6 +117,7 @@ export interface RootRouteChildren {
   AlbumRoute: typeof AlbumRoute
   HowToBuildAWorldRoute: typeof HowToBuildAWorldRoute
   ListenRoute: typeof ListenRoute
+  LostPropertyRoute: typeof LostPropertyRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   GuideHowToMakeAConceptAlbumRoute: typeof GuideHowToMakeAConceptAlbumRoute
 }
@@ -139,6 +152,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ListenRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/lost-property': {
+      id: '/lost-property'
+      path: '/lost-property'
+      fullPath: '/lost-property'
+      preLoaderRoute: typeof LostPropertyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sitemap.xml': {
       id: '/sitemap.xml'
       path: '/sitemap.xml'
@@ -161,6 +181,7 @@ const rootRouteChildren: RootRouteChildren = {
   AlbumRoute: AlbumRoute,
   HowToBuildAWorldRoute: HowToBuildAWorldRoute,
   ListenRoute: ListenRoute,
+  LostPropertyRoute: LostPropertyRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   GuideHowToMakeAConceptAlbumRoute: GuideHowToMakeAConceptAlbumRoute,
 }
