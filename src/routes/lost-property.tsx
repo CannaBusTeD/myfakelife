@@ -11,6 +11,7 @@ import page20b from "@/assets/lyricbook/page-20b.png.asset.json";
 import page20c from "@/assets/lyricbook/page-20c.png.asset.json";
 import page22b from "@/assets/lyricbook/page-22b.png.asset.json";
 import pdfAsset from "@/assets/docs/how-to-build-a-world.pdf.asset.json";
+import { CookieSettingsLink } from "@/components/CookieSettingsLink";
 
 const SITE_URL = "https://cannabusted.com";
 const URL = `${SITE_URL}/lost-property`;
@@ -330,6 +331,10 @@ function LostPropertyPage() {
           >
             Back to the door
           </Link>
+        </div>
+
+        <div className="mt-10">
+          <CookieSettingsLink />
         </div>
       </main>
     </div>
