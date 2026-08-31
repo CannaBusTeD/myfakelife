@@ -13,11 +13,22 @@
 export type ConsentChoice = "allowed" | "rejected";
 
 const KEY = "mfl_cookie_consent";
-const COOKIE = "cb_cookie_consent";
+/** Shared cross-site contract: cb_consent = "accept" | "reject". */
+const COOKIE = "cb_consent";
+/** Legacy name/values, read for migration only. */
+const LEGACY_COOKIE = "cb_cookie_consent";
 const BROWSER_ID_COOKIE = "cb_bid";
 const BROWSER_ID_KEY = "cb_bid";
 const TWELVE_MONTHS_SECONDS = 60 * 60 * 24 * 365;
 const PARENT_DOMAIN = "cannabusted.com";
+
+const toWire = (c: ConsentChoice) => (c === "allowed" ? "accept" : "reject");
+function fromWire(v: string | null): ConsentChoice | null {
+  if (v === "accept" || v === "allowed") return "allowed";
+  if (v === "reject" || v === "rejected") return "rejected";
+  return null;
+}
+
 
 /** True when we're on the live cannabusted.com domain (any subdomain). */
 export function isSharedDomain(): boolean {
