@@ -25,7 +25,7 @@ export function ReturnTicketButton() {
           aria-expanded={ticketOpen}
           aria-controls="return-ticket-form"
           onClick={() => setTicketOpen((v) => !v)}
-          className="landing-focus group inline-block rounded-sm overflow-hidden transition-transform hover:scale-[1.02] focus-visible:scale-[1.02]"
+          className="landing-focus group inline-block bg-transparent border-0 p-0 shadow-none transition-transform hover:scale-[1.02] focus-visible:scale-[1.02]"
         >
           <span className="sr-only">
             Free return ticket{" "}
