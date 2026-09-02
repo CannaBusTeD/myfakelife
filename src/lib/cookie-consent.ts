@@ -1,5 +1,3 @@
-import "./analytics";
-
 export type ConsentChoice = "allowed" | "rejected";
 const KEY = "mfl_cookie_consent";
 const EXPIRY_KEY = "mfl_cookie_consent_expiry";
