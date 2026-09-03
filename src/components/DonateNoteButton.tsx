@@ -93,26 +93,6 @@ export function DonateNoteButton({
             <span className="sr-only">Not today — close this note</span>
           </button>
         </div>
-
-        {/* Always-visible text controls for small screens and clarity */}
-        <div className="mt-4 flex flex-wrap items-center justify-center gap-4 sm:hidden">
-          <a
-            href={DONATE_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={() => setOpen(false)}
-            className="btn-poster btn-poster--ember landing-focus min-h-11 px-6 py-3 text-xs"
-          >
-            Leave a tip
-          </a>
-          <button
-            type="button"
-            onClick={() => setOpen(false)}
-            className="btn-poster landing-focus min-h-11 px-6 py-3 text-xs"
-          >
-            Not today
-          </button>
-        </div>
       </DialogContent>
     </Dialog>
   );
