@@ -44,13 +44,13 @@ export function ArtworkMenu() {
         aria-expanded={open}
         aria-controls={menuId}
         onClick={() => setOpen(true)}
-        className="group block h-[70px] w-[92px] overflow-hidden rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ember sm:h-[82px] sm:w-[108px]"
+        className="group block h-[70px] w-[92px] appearance-none overflow-hidden border-0 bg-transparent p-0 shadow-none rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ember sm:h-[82px] sm:w-[108px]"
       >
         <img
           src={menuArt.url}
           alt=""
           aria-hidden="true"
-          className="pointer-events-none block h-auto max-w-none transition-transform group-hover:scale-[1.02]"
+          className="pointer-events-none block h-auto max-w-none bg-transparent transition-transform group-hover:scale-[1.02]"
           style={{ width: "365.72%" }}
         />
       </button>
@@ -70,13 +70,13 @@ export function ArtworkMenu() {
             role="dialog"
             aria-modal="true"
             aria-label="Site navigation"
-            className="relative w-full max-w-[760px] overflow-hidden"
+            className="relative w-full max-w-[760px] overflow-hidden bg-transparent"
             style={{ aspectRatio: "1116 / 1024" }}
           >
             <img
               src={menuArt.url}
               alt="My Fake World navigation menu"
-              className="absolute top-0 h-auto max-w-none select-none"
+              className="absolute top-0 h-auto max-w-none select-none bg-transparent"
               style={{ width: "137.64%", left: "-37.64%" }}
             />
 
@@ -87,7 +87,7 @@ export function ArtworkMenu() {
                 href={destination.href}
                 aria-label={destination.label}
                 onClick={() => setOpen(false)}
-                className="absolute left-[31%] h-[8.1%] w-[47%] rounded-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                className="absolute left-[31%] h-[8.1%] w-[47%] rounded-md bg-transparent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
                 style={{ top: destination.top }}
               >
                 <span className="sr-only">{destination.label}</span>
@@ -101,7 +101,7 @@ export function ArtworkMenu() {
                 setOpen(false);
                 toggleRef.current?.focus();
               }}
-              className="absolute right-[1.8%] top-[2.2%] h-[11%] w-[11%] rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+              className="absolute right-[1.8%] top-[2.2%] h-[11%] w-[11%] appearance-none rounded-full border-0 bg-transparent p-0 shadow-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
             />
           </nav>
         </div>
