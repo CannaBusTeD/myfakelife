@@ -1,0 +1,30 @@
+a[download] {
+  display: inline-block !important;
+  width: min(82vw, 360px) !important;
+  aspect-ratio: 2048 / 704;
+  min-height: 56px;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background-color: transparent !important;
+  background-image: url("/__l5e/assets-v1/ff1ada42-b23f-434d-90ab-5e469e6a70d6/download-button.png") !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  background-size: contain !important;
+  box-shadow: none !important;
+  color: transparent !important;
+  font-size: 0 !important;
+  line-height: 0 !important;
+  text-decoration: none !important;
+  vertical-align: middle;
+}
+
+a[download]:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.04);
+}
+
+a[download]:focus-visible {
+  outline: 3px solid var(--ring);
+  outline-offset: 4px;
+}
